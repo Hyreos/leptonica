@@ -63,15 +63,16 @@ set(leptonica_INSTALL_CMAKE_DIR
     "lib/cmake/leptonica"
     CACHE STRING "Install destination for CMake package files")
 
-if(NOT SW_BUILD)
-  find_package(GIF)
-  if(GIF_FOUND)
-    set(libs_private "${libs_private} -lgif")
-  endif()
-  find_package(JPEG)
-  if(JPEG_FOUND)
-    set(libs_private "${libs_private} -ljpeg")
-  endif()
+#if(NOT SW_BUILD)
+#  find_package(GIF)
+#  if(GIF_FOUND)
+#    set(libs_private "${libs_private} -lgif")
+#  endif()
+#  find_package(JPEG)
+#  if(JPEG_FOUND)
+#    set(libs_private "${libs_private} -ljpeg")
+#  endif()
+#[[
   find_package(PNG)
   if(PNG_FOUND)
     set(libs_private "${libs_private} -lpng")
@@ -150,19 +151,21 @@ else() # SW_BUILD=ON
     org.sw.demo.webmproject.webp org.sw.demo.uclouvain.openjpeg.openjp2)
   sw_execute()
 
-  add_definitions(
-    -DHAVE_LIBGIF=1
-    -DHAVE_LIBJPEG=1
-    -DHAVE_LIBPNG=1
-    -DHAVE_LIBTIFF=1
-    -DHAVE_LIBWEBP=1
-    -DHAVE_LIBWEBP_ANIM=1
-    -DHAVE_LIBZ=1
-    -DHAVE_LIBJP2K=1
-    -DLIBJP2K_HEADER="openjpeg.h")
+
 endif()
 
 set(libs_private "${libs_private} -lm")
+]]
+
+add_definitions(
+  -DHAVE_LIBGIF=0
+  -DHAVE_LIBJPEG=0
+  -DHAVE_LIBPNG=0
+  -DHAVE_LIBTIFF=0
+  -DHAVE_LIBWEBP=0
+  -DHAVE_LIBWEBP_ANIM=0
+  -DHAVE_LIBZ=0
+  -DHAVE_LIBJP2K=0)
 
 # ##############################################################################
 #
@@ -266,7 +269,7 @@ message(STATUS "Install directory: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS)
 message(STATUS "Build with sw [SW_BUILD]: ${SW_BUILD}")
 message(STATUS "Build utility programs [BUILD_PROG]: ${BUILD_PROG}")
-if(NOT SW_BUILD)
+#[[if(NOT SW_BUILD)
   message(STATUS "Used ZLIB library: ${ZLIB_LIBRARIES}")
   message(STATUS "Used PNG library:  ${PNG_LIBRARIES}")
   message(STATUS "Used JPEG library: ${JPEG_LIBRARIES}")
@@ -274,7 +277,7 @@ if(NOT SW_BUILD)
   message(STATUS "Used TIFF library: ${TIFF_LIBRARIES}")
   message(STATUS "Used GIF library:  ${GIF_LIBRARIES}")
   message(STATUS "Used WEBP library: ${WEBP_LIBRARIES}")
-endif()
+endif()]]
 message(STATUS "--------------------------------------------------------")
 message(STATUS)
 
